@@ -2,6 +2,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from PlayerDatabase import *
+from errorMessage import *
 
 class PlayerInfo(QMainWindow):
 	def __init__(self, parent,):
@@ -77,19 +78,26 @@ class PlayerInfo(QMainWindow):
 		
 	
 	def btnSave_pushed(self):
-		
 		forename = self.forename.text()
 		surname = self.surname.text()
-		rating = int(self.rating.text())
+		rating = self.rating.text()
 		email = self.email.text()
 		position = self.position.text()
 		avaliable = self.avaliable.text()
 		PlayerID = self.players[self.index][0]
-		g_database.UpdatePlayer(forename, surname, rating, email, position, avaliable,PlayerID)
+		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":
+			
+			g_database.UpdatePlayer(forename, surname, int(rating), email, position, avaliable,PlayerID)
 		
-		self.parent.show()
-		self.parent.refresh_List()
-		self.close()
+			self.parent.show()
+			self.parent.refresh_List()
+			self.close()
+		else:
+			self.error = ErrorWindow(self)
+			self.error.show()
+			self.error.raise_()
+	
+		
 		
 	def btnDel_pushed(self):
 		PlayerID = self.players[self.index][0]

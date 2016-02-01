@@ -45,8 +45,18 @@ class PlayerSelect(QMainWindow):
 		
 	def btnAdd_pushed(self):
 		index = self.list.selectedIndexes()[0].row()
+		player_data = self.list.selectedIndexes()[0].data()
+		# linear search of gloal list using player_data as the search term.
+		
+		
 		players = g_database.GetAllPlayers()
-		player = players[index]
+		
+		for l_index, player in enumerate(players):
+			if player[1][0]+" "+player[2] == player_data:
+				print(index, l_index)
+				index = l_index
+				
+		print(players)
 	
 		g_teamlayout.player_assigned[self.teamindex] = player
 		player_list = g_teamlayout.player_assigned

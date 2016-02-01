@@ -2,7 +2,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from PlayerDatabase import *
-
+from errorMessage import *
 class AddPlayer(QMainWindow):
 	def __init__(self, parent):
 		super().__init__(parent)
@@ -68,15 +68,20 @@ class AddPlayer(QMainWindow):
 	def btnAdd_pushed(self):
 		forename = self.forename.text()
 		surname = self.surname.text()
-		rating = int(self.rating.text())
+		rating = self.rating.text()
 		email = self.email.text()
 		position = self.position.text()
 		avaliable = self.avaliable.text()
-		
-		g_database.AddPlayer(forename, surname, rating, email, position, avaliable)
-		self.parent.show()
-		self.parent.refresh_List()
-		self.close()
+			
+		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":
+			g_database.AddPlayer(forename, surname, int(rating), email, position, avaliable)
+			self.parent.show()
+			self.parent.refresh_List()
+			self.close()
+		else:
+			self.error = ErrorWindow(self)
+			self.error.show()
+			self.error.raise_()
 
 	def btnCancel_pushed(self):
 		self.parent.show()

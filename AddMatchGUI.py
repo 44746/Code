@@ -2,6 +2,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
 from PlayerDatabase import *
+from errorMessage import *
 
 class AddMatch(QMainWindow):
 	def __init__(self,parent):
@@ -59,12 +60,18 @@ class AddMatch(QMainWindow):
 		date = self.date.text()
 		opposition=self.opposition.text()
 		result = self.result.text()
-		g_database.AddMatch(date,opposition,result)
 		
-		self.parent.show()
-		self.parent.refreshTable()
-		self.close()
+		if date != "" and opposition != "" and result!="":
+			g_database.AddMatch(date,opposition,result)
 		
+			self.parent.show()
+			self.parent.refreshTable()
+			self.close()
+		else:
+			self.error = ErrorWindow(self)
+			self.error.show()
+			self.error.raise_()
+	
 	def btnCancel_pushed(self):
 		self.parent.show()
 		self.close()
