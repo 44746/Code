@@ -4,10 +4,12 @@ from PyQt4.QtCore import *
 import sys
 
 class ErrorWindow(QMainWindow):
-	def __init__(self,parent):
+	def __init__(self,parent,error_message):
 		super().__init__()
+		
+		self.error_message = error_message
 		self.setWindowTitle("Error")
-		self.message = QLabel("You did not enter data into all the required fields")
+		self.message = QLabel(self.error_message)
 		self.ok = QPushButton("OK")
 
 		self.parent = parent

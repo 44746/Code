@@ -68,7 +68,7 @@ class AddMatch(QMainWindow):
 			self.parent.refreshTable()
 			self.close()
 		else:
-			self.error = ErrorWindow(self)
+			self.error = ErrorWindow(self,"You did not enter data into all the required fields")
 			self.error.show()
 			self.error.raise_()
 	

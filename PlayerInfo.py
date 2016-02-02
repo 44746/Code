@@ -85,17 +85,66 @@ class PlayerInfo(QMainWindow):
 		position = self.position.text()
 		avaliable = self.avaliable.text()
 		PlayerID = self.players[self.index][0]
-		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":
-			
-			g_database.UpdatePlayer(forename, surname, int(rating), email, position, avaliable,PlayerID)
 		
+		#Validation
+		email_valid = False
+		rating_valid = False
+		position_valid = False
+		avaliable_valid = False
+		
+		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":	
+			#Email Validation
+			at_valid = False
+			dot_valid = False
+			
+			for each in email:
+				if each == "@":
+					at_valid = True
+				if each == ".":
+					dot_valid = True
+			if at_valid == True and dot_valid == True:
+					email_valid = True
+			else:
+				self.error = ErrorWindow(self,"Please enter a valid Email address")
+				self.error.show()
+				self.error.raise_()
+			
+		
+			#Rating validation	
+			if rating in ["0","1","2","3","4","5","6","7","8","9","10"]:
+				rating_valid = True
+			else:
+				self.error = ErrorWindow(self,"Please enter a valid Rating")
+				self.error.show()
+				self.error.raise_()
+			
+			#Position Validation
+			if position in ["GK","LB","CB","RB","LM","CM","RM","ST"]:
+				position_valid = True
+			else:
+				self.error = ErrorWindow(self,"Please enter a valid Position")
+				self.error.show()
+				self.error.raise_()
+			
+			#Avaliable Validation
+			if avaliable in ["Y","y","YES","Yes","N","n","NO","no"]:
+				avaliable_valid = True
+			else:
+				self.error = ErrorWindow(self,"Please enter a valid avaliabilty")
+				self.error.show()
+				self.error.raise_()
+				
+		else:
+			self.error = ErrorWindow(self,"You did not enter data into all the required fields")
+			self.error.show()
+			self.error.raise_()
+
+		if email_valid == True and rating_valid == True and position_valid == True and avaliable_valid == True:
+			g_database.UpdatePlayer(forename, surname, int(rating), email, position, avaliable,PlayerID)
 			self.parent.show()
 			self.parent.refresh_List()
 			self.close()
-		else:
-			self.error = ErrorWindow(self)
-			self.error.show()
-			self.error.raise_()
+		
 	
 		
 		
