@@ -53,7 +53,6 @@ class PlayerSelect(QMainWindow):
 		
 		for l_index, player in enumerate(players):
 			if player[1][0]+" "+player[2] == player_data:
-				print(index, l_index)
 				index = l_index
 				break
 	
@@ -64,7 +63,6 @@ class PlayerSelect(QMainWindow):
 		
 		for count, list_item in enumerate(player_list):
 			if list_item != None and player_list[self.teamindex] == list_item and count != self.teamindex:
-				print("list call")
 				g_teamlayout.player_assigned[count] = None
 		
 		g_teamlayout.player_assigned[self.teamindex] = player

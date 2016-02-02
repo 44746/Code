@@ -85,7 +85,6 @@ class Database:
 		with sqlite3.connect(self._db_name) as db:
 			cursor = db.cursor()
 			sql = "insert into Player(PlayerID,forename, surname, rating, email, position, avaliable) values ((SELECT max(PlayerID) FROM Player)+1,'{0}','{1}', {2}, '{3}', '{4}', '{5}')".format(forename, surname, rating, email, position, avaliable)
-			print(sql)
 			cursor.execute(sql)
 			db.commit()
 	

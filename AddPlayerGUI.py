@@ -78,15 +78,56 @@ class AddPlayer(QMainWindow):
 		rating_valid = False
 		position_valid = False
 		avaliable_valid = False
+		forename_valid = False
+		surname_valid = False
 		
 		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":	
+			
+			alphabet_lower = []
+			alphabet_upper =[]
+			for letter in map(chr, range(97, 123)):
+				alphabet_lower.append(letter)
+			for letter in map(chr, range(65,91)):
+				alphabet_upper.append(letter)
+			#Forename validation
+			forename_valid = True
+			count = -1
+			for each in forename:
+				count = count +1
+				if count == 0:
+					if forename[count] not in alphabet_upper:
+						forename_valid = False
+				else:
+					if forename_valid == True and each not in alphabet_lower:
+						forename_valid = False
+					
+			if forename_valid == False:
+				self.error = ErrorWindow(self,"Please enter a valid Forename")
+				self.error.show()
+				self.error.raise_()
+				
+			#Surname validation
+			surname_valid = True
+			count = -1
+			for each in surname:
+				count = count +1
+				if count == 0:
+					if surname[count] not in alphabet_upper:
+						surname_valid = False
+				else:
+					if surname_valid == True and each not in alphabet_lower:
+						surname_valid = False
+						
+			if surname_valid == False:
+				self.error = ErrorWindow(self,"Please enter a valid Surname")
+				self.error.show()
+				self.error.raise_()			
+			
 			#Email Validation
 			at_valid = False
 			dot_valid = False
 			
 			for each in email:
-				print(each)
-				
 				if each == "@":
 					at_valid = True
 				if each == ".":
@@ -94,7 +135,7 @@ class AddPlayer(QMainWindow):
 					
 			if at_valid == True and dot_valid == True:
 					email_valid = True
-					print(email_valid)
+
 			else:
 				self.error = ErrorWindow(self,"Please enter a valid Email address")
 				self.error.show()
@@ -126,15 +167,11 @@ class AddPlayer(QMainWindow):
 				self.error.raise_()
 				
 		else:
-			self.error = ErrorWindow(self,"You did not enter data into all the required fields")
+			self.error = ErrorWindow(self,"Please enter data into all the required fields")
 			self.error.show()
 			self.error.raise_()
 		
-		
-		
-		
-		
-		if email_valid == True and rating_valid == True and position_valid == True and avaliable_valid == True:
+		if email_valid == True and rating_valid == True and position_valid == True and avaliable_valid == True and forename_valid == True and surname_valid == True:
 			g_database.AddPlayer(forename, surname, int(rating), email, position, avaliable)
 			self.parent.show()
 			self.parent.refresh_List()

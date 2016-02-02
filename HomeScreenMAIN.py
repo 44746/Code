@@ -7,7 +7,7 @@ from HomeScreenGUI import *
 
         
 if __name__ == "__main__":
-    ##Create new application
+    ##Create new applicatin
     app = QApplication(sys.argv)
     ##instantiate window
     window = HomeScreen()
