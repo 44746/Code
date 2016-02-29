@@ -7,7 +7,7 @@ class AddGoal(QMainWindow):
 		super().__init__(parent)
 		self.parent = parent
 		self.setWindowTitle("Add Goal")
-	## Widget setting
+	# Widget setting
 		self.labelM = QLabel("Match: ")
 		self.matchCombo = QComboBox()
 		self.PopulateMatchComboBox()
@@ -102,7 +102,7 @@ class AddGoal(QMainWindow):
 			self.error = ErrorWindow(self,"You did not enter data into all the required fields")
 			#Showing the error window
 			self.error.show()
-			#Rasing the error window to the front of the screen
+			#Raising the error window to the front of the screen
 			self.error.raise_()
 
 	def btnCancel_pushed(self):

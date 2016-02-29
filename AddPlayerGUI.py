@@ -10,7 +10,7 @@ class AddPlayer(QMainWindow):
 		self.parent = parent
 		
 		self.setWindowTitle("Add Player")
-		
+		#Widget setting
 		self.forename = QLineEdit()
 		self.labelF = QLabel("Forename: ")
 		
@@ -66,11 +66,17 @@ class AddPlayer(QMainWindow):
 		
 	
 	def btnAdd_pushed(self):
+		#Assigning 'forename' to the inputted forename as text
 		forename = self.forename.text()
+		#Assigning 'surname' to the inputted surname as text
 		surname = self.surname.text()
+		#Assigning 'rating' to the inputted rating as text
 		rating = self.rating.text()
+		#Assigning 'email' to the inputted email as text
 		email = self.email.text()
+		#Assigning 'position' to the inputted position as text
 		position = self.position.text()
+		#Assigning avaliable to the inputted avaliable  as text
 		avaliable = self.avaliable.text()
 		
 		#Validation
@@ -80,13 +86,15 @@ class AddPlayer(QMainWindow):
 		avaliable_valid = False
 		forename_valid = False
 		surname_valid = False
-		
+		#Checking that each field has an entry of some sort
 		if forename != "" and surname != "" and rating!= "" and email != "" and position != "" and avaliable != "":	
-			
+			#Setting up alphabet lists
 			alphabet_lower = []
 			alphabet_upper =[]
+			#Adding each lower case letter to the lower list
 			for letter in map(chr, range(97, 123)):
 				alphabet_lower.append(letter)
+			#Adding each upper case letter to the upper list
 			for letter in map(chr, range(65,91)):
 				alphabet_upper.append(letter)
 			#Forename validation
@@ -102,8 +110,11 @@ class AddPlayer(QMainWindow):
 						forename_valid = False
 					
 			if forename_valid == False:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid Forename")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()
 				
 			#Surname validation
@@ -111,7 +122,9 @@ class AddPlayer(QMainWindow):
 			count = -1
 			for each in surname:
 				count = count +1
+				#Checking the first letter
 				if count == 0:
+					#Checking its a capital letter
 					if surname[count] not in alphabet_upper:
 						surname_valid = False
 				else:
@@ -119,56 +132,77 @@ class AddPlayer(QMainWindow):
 						surname_valid = False
 						
 			if surname_valid == False:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid Surname")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()			
 			
 			#Email Validation
 			at_valid = False
 			dot_valid = False
-			
+			#Checking the email contains an @ and . symbol
 			for each in email:
 				if each == "@":
 					at_valid = True
 				if each == ".":
 					dot_valid = True
-					
+			#Setting email_valid to true if the input contains an @ and an .		
 			if at_valid == True and dot_valid == True:
 					email_valid = True
 
 			else:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid Email address")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()
 			
 		
-			#Rating validation	
+			#Rating validation
+			#List of valid entries
 			if rating in ["0","1","2","3","4","5","6","7","8","9","10"]:
 				rating_valid = True
 			else:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid Rating")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()
 			
 			#Position Validation
+			#List of valid entries
 			if position in ["GK","LB","CB","RB","LM","CM","RM","ST"]:
 				position_valid = True
 			else:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid Position")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()
 			
 			#Avaliable Validation
+			#List of valid entries
 			if avaliable in ["Y","y","YES","Yes","N","n","NO","no"]:
 				avaliable_valid = True
 			else:
+				#Running the Error widget, passing in the message to display
 				self.error = ErrorWindow(self,"Please enter a valid avaliabilty")
+				#Showing the error window
 				self.error.show()
+				#Raising the error window to the front of the screen
 				self.error.raise_()
 				
 		else:
+			#Running the Error widget, passing in the message to display
 			self.error = ErrorWindow(self,"Please enter data into all the required fields")
+			#Showing the error window
 			self.error.show()
+			#Raising the error window to the front of the screen
 			self.error.raise_()
 		
 		if email_valid == True and rating_valid == True and position_valid == True and avaliable_valid == True and forename_valid == True and surname_valid == True:

@@ -9,7 +9,7 @@ class AddMatch(QMainWindow):
 		super().__init__(parent)
 		self.parent = parent
 		self.setWindowTitle("Add Match")
-		
+		# Widget setting
 		self.date = QLineEdit()
 		self.labelD = QLabel("Date: ")
 		self.opposition = QLineEdit()
@@ -56,24 +56,35 @@ class AddMatch(QMainWindow):
 		self.btnCancel.clicked.connect(self.btnCancel_pushed)
 	
 	def btnAdd_pushed(self):
-		
+		#Assigning 'date' to the inputted date as text
 		date = self.date.text()
+		#Assigning 'opposition' to the inputted opposition as text
 		opposition=self.opposition.text()
+		#Assigning 'result' to the inputted result as text
 		result = self.result.text()
 		
+		#Checking that each field has an entry
 		if date != "" and opposition != "" and result!="":
+			#Running the 'AddMatch' function in the database and adding the data inputted by the user
 			g_database.AddMatch(date,opposition,result)
-		
+			#Showing the window that this window was activated from
 			self.parent.show()
+			#Running the 'refreshTable' function in the parent window
 			self.parent.refreshTable()
+			#Closing this window
 			self.close()
 		else:
+			#Running the Error widget, passing in the message to display
 			self.error = ErrorWindow(self,"You did not enter data into all the required fields")
+			#Showing the error window
 			self.error.show()
+			#Raising the error window to the front of the screen
 			self.error.raise_()
 	
 	def btnCancel_pushed(self):
+		#Showing the window that this window was activated from
 		self.parent.show()
+		#Closing this window
 		self.close()
 
 	
