@@ -102,10 +102,14 @@ class AddPlayer(QMainWindow):
 			count = -1
 			for each in forename:
 				count = count +1
+				#Checking the first letter
 				if count == 0:
+					#Checking if its a capital letter
 					if forename[count] not in alphabet_upper:
 						forename_valid = False
+				#Checking the rest of the entry	
 				else:
+					#Checking the letter is lower case
 					if forename_valid == True and each not in alphabet_lower:
 						forename_valid = False
 					
@@ -127,7 +131,9 @@ class AddPlayer(QMainWindow):
 					#Checking its a capital letter
 					if surname[count] not in alphabet_upper:
 						surname_valid = False
+				#Checking the rest of the entry
 				else:
+					#Checking the letter is lower case
 					if surname_valid == True and each not in alphabet_lower:
 						surname_valid = False
 						
@@ -204,15 +210,21 @@ class AddPlayer(QMainWindow):
 			self.error.show()
 			#Raising the error window to the front of the screen
 			self.error.raise_()
-		
+		#Checking all the valid statements are all true
 		if email_valid == True and rating_valid == True and position_valid == True and avaliable_valid == True and forename_valid == True and surname_valid == True:
+			#Updating the database by running the UpdatePlayer function
 			g_database.AddPlayer(forename, surname, int(rating), email, position, avaliable)
+			#Showing the parent window
 			self.parent.show()
+			#Running the refresh_List function in the parent window
 			self.parent.refresh_List()
+			#Closing the current window
 			self.close()
 	
 		
 
 	def btnCancel_pushed(self):
+		#Showing the parent window
 		self.parent.show()
+		#Closing the current window
 		self.close()

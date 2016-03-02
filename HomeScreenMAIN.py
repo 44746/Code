@@ -5,7 +5,7 @@ import sqlite3
 
 from HomeScreenGUI import *
 
-        
+#Runs the HomeScreen class        
 if __name__ == "__main__":
     ##Create new applicatin
     app = QApplication(sys.argv)
