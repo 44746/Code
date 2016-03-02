@@ -3,8 +3,9 @@ import sqlite3
 class Database:
 	def __init__(self,db_name):
 		self._db_name=db_name
+		#Running the CreateDatabase function
 		self.CreateDatabase()
-
+	#Creating tables
 	def CreateDatabase(self):
 		sql = """create table if not exists Player
 			 (PlayerID integer,
@@ -16,6 +17,7 @@ class Database:
 			 avaliable text,
 			 
 			 primary Key(PlayerID))"""
+		#Running the execute_sql function passing in the sql	 
 		self.execute_sql(sql)
 		
 		sql = """create table if not exists Match
@@ -25,6 +27,7 @@ class Database:
 			 result text,
 			 
 			 primary Key(MatchID))"""
+		#Running the execute_sql function passing in the sql	
 		self.execute_sql(sql)
 		
 		sql = """create table if not exists Goal
@@ -35,6 +38,7 @@ class Database:
 				
 				
 				primary Key(GoalID))"""
+		#Running the execute_sql function passing in the sql	
 		self.execute_sql(sql)
 
 	def execute_sql(self, sql):
@@ -81,7 +85,6 @@ class Database:
 			
 
 	def AddPlayer(self,forename, surname, rating, email, position, avaliable):
-		
 		with sqlite3.connect(self._db_name) as db:
 			cursor = db.cursor()
 			sql = "insert into Player(PlayerID,forename, surname, rating, email, position, avaliable) values ((SELECT max(PlayerID) FROM Player)+1,'{0}','{1}', {2}, '{3}', '{4}', '{5}')".format(forename, surname, rating, email, position, avaliable)

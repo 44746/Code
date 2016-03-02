@@ -29,8 +29,8 @@ class ErrorWindow(QMainWindow):
 
 	def back(self):
 		#Showing the parent screen
-		self.parent.show()
+		#self.parent.show()
 		#Raisng the parent screen to the front of the desktop
-		self.parent.raise_()
+		#self.parent.raise_()
 		#Closing this window
 		self.close()
