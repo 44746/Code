@@ -34,7 +34,7 @@ class PlayerSelect(QMainWindow):
 		self.list.clear()
 		for player in players:
 			#Checking the player is available
-			if player[6] != "n" and player[6] != "N" and player[6] != "no" and player[6] != "No" and player[6] != "NO": 
+			if player[6] not in ["n","N","no","No","NO"]:
 				row = row+1
 				#Blank list
 				name_list = ""
